@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Sidebar from './components/Sidebar'
 import StudentTable from './components/StudentTable'
 import TeacherTable from './components/TeacherTable'
+import Analytics from './components/Analytics'
 
 function App() {
   const [activeTab, setActiveTab] = useState('students')
@@ -23,6 +24,7 @@ function App() {
         {activeTab === 'teachers' && (
           <TeacherTable teachers={teachers} setTeachers={setTeachers} />
         )}
+        {activeTab === 'analytics' && <Analytics />}
       </main>
     </div>
   )

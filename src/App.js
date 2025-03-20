@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar'
 import StudentTable from './components/StudentTable'
 import TeacherTable from './components/TeacherTable'
 import Analytics from './components/Analytics'
+import Settings from './components/Settings'
 
 function App() {
   const [activeTab, setActiveTab] = useState('students')
@@ -25,6 +26,7 @@ function App() {
           <TeacherTable teachers={teachers} setTeachers={setTeachers} />
         )}
         {activeTab === 'analytics' && <Analytics />}
+        {activeTab === 'settings' && <Settings />}
       </main>
     </div>
   )

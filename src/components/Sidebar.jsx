@@ -5,7 +5,9 @@ import {
   Cog6ToothIcon,
   ChartBarIcon,
   BookOpenIcon,
-  ArrowLeftOnRectangleIcon
+  ArrowLeftOnRectangleIcon,
+  ClipboardDocumentCheckIcon,
+  BookmarkIcon
 } from '@heroicons/react/24/outline'
 
 export default function Sidebar() {
@@ -62,6 +64,34 @@ export default function Sidebar() {
           <BookOpenIcon className="h-6 w-6" />
           <span className="font-medium">Teachers</span>
         </NavLink>
+
+        <NavLink
+  to="/attendance"
+  className={({ isActive }) => 
+    `w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-200 ${
+      isActive 
+        ? 'bg-blue-700 text-white shadow-lg'
+        : 'text-blue-200 hover:bg-blue-700/50 hover:text-white'
+    }`
+  }
+>
+  <ClipboardDocumentCheckIcon className="h-6 w-6" />
+  <span className="font-medium">Attendance</span>
+</NavLink>
+
+<NavLink
+  to="/courses"
+  className={({ isActive }) => 
+    `w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-200 ${
+      isActive 
+        ? 'bg-blue-700 text-white shadow-lg'
+        : 'text-blue-200 hover:bg-blue-700/50 hover:text-white'
+    }`
+  }
+>
+  <BookmarkIcon className="h-6 w-6" />
+  <span className="font-medium">Courses</span>
+</NavLink>
 
         <div className="border-t border-blue-600/50 my-4"></div>
 

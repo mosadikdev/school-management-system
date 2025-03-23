@@ -5,10 +5,12 @@ import StudentTable from './components/StudentTable'
 import TeacherTable from './components/TeacherTable'
 import Dashboard from './components/Dashboard'
 import { Route, Routes } from 'react-router-dom'
+import Attendance from './components/Attendance'
+import Courses from './components/Courses'
 
 function App() {
   const [students, setStudents] = useState([
-    { id: 1, name: 'mohamed', grade: '14', contact: 'mohamed@email.com' },
+    { id: 1, name: 'Mohamed Ali', grade: '11', contact: 'mohamed@email.com' },
   ])
 
   const [teachers, setTeachers] = useState([
@@ -39,6 +41,8 @@ function App() {
               />
             } 
           />
+          <Route path="/attendance" element={<Attendance />} />
+          <Route path="/courses" element={<Courses />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>

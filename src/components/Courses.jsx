@@ -6,8 +6,7 @@ const initialCourses = [
   { id: 2, code: 'SCI201', name: 'Science', instructor: 'Ms. Fatima', schedule: 'Tue/Thu 11:00 AM' },
 ]
 
-export default function Courses() {
-  const [courses, setCourses] = useState(initialCourses)
+export default function Courses({ courses, setCourses }) {
   const [newCourse, setNewCourse] = useState({ code: '', name: '', instructor: '', schedule: '' })
   const [editingId, setEditingId] = useState(null)
 

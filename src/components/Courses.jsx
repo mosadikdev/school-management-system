@@ -36,7 +36,6 @@ export default function Courses({ courses, setCourses }) {
     <div>
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Course Management</h1>
 
-      {/* Add/Edit Form */}
       <form onSubmit={handleSubmit} className="mb-6 bg-white p-4 rounded-lg shadow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
@@ -81,7 +80,6 @@ export default function Courses({ courses, setCourses }) {
         </button>
       </form>
 
-      {/* Courses Table */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <table className="min-w-full">
           <thead className="bg-gray-50">

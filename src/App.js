@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
 import Settings from './components/Settings'
@@ -34,7 +34,6 @@ function App() {
     }
   ])
 
-  // Add activity logger
   const addActivity = (type, text) => {
     setActivities(prev => [
       ...prev,
@@ -47,7 +46,6 @@ function App() {
     ])
   }
 
-  // Enhanced state setters with activity logging
   const handleAddStudent = (student) => {
     setStudents(prev => [...prev, student])
     addActivity('student', `New student added: ${student.name}`)
@@ -58,10 +56,7 @@ function App() {
     addActivity('teacher', `New teacher added: ${teacher.name}`)
   }
 
-  const handleAddCourse = (course) => {
-    setCourses(prev => [...prev, course])
-    addActivity('course', `New course added: ${course.name}`)
-  }
+
 
   return (
     <div className="flex min-h-screen bg-gray-100">

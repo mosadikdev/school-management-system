@@ -109,7 +109,6 @@ export default function Settings() {
         </div>
       </div>
 
-      {/* Security Section */}
       <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
         <div className="flex items-center gap-3 mb-6">
           <ShieldCheckIcon className="h-6 w-6 text-green-600" />
@@ -152,7 +151,6 @@ export default function Settings() {
         </form>
       </div>
 
-      {/* Danger Zone */}
       <div className="bg-red-50 rounded-xl shadow-sm p-6 border border-red-200">
         <div className="flex items-center gap-3 mb-6">
           <TrashIcon className="h-6 w-6 text-red-600" />

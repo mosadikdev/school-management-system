@@ -17,7 +17,6 @@ export default function Dashboard({
   attendanceRecords,
   recentActivities
 }) {
-  // Calculate attendance rate
   const presentCount = attendanceRecords.filter(
     record => record.status === 'present'
   ).length
@@ -25,12 +24,10 @@ export default function Dashboard({
     ? Math.round((presentCount / attendanceRecords.length) * 100)
     : 0
 
-  // Process recent activities
   const processedActivities = recentActivities
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
     .slice(0, 4)
 
-  // Sample upcoming events (could be moved to state)
   const upcomingEvents = [
     { date: '2025-05-15', title: 'Sports Day', type: 'event' },
     { date: '2025-05-20', title: 'Mid-term Exams', type: 'exam' },
@@ -47,7 +44,6 @@ export default function Dashboard({
         </div>
       </div>
 
-      {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard 
           icon={<UserGroupIcon className="h-8 w-8 text-blue-600" />}
@@ -79,9 +75,7 @@ export default function Dashboard({
         />
       </div>
 
-      {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Recent Activities */}
         <div className="lg:col-span-2">
           <SectionCard 
             title="Recent Activities"
@@ -101,7 +95,6 @@ export default function Dashboard({
           </SectionCard>
         </div>
 
-        {/* Quick Actions & Calendar */}
         <div className="space-y-8">
           <SectionCard title="Quick Actions">
             <div className="grid grid-cols-1 gap-3">
@@ -153,7 +146,6 @@ export default function Dashboard({
   )
 }
 
-// Reusable Components
 const StatCard = ({ icon, title, value, trend, subText, iconSub }) => (
   <div className="bg-white p-6 rounded-xl shadow-sm flex items-center gap-4">
     {icon}

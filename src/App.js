@@ -8,7 +8,6 @@ import Dashboard from './components/Dashboard'
 import Attendance from './components/Attendance'
 import Courses from './components/Courses'
 
-
 const initialCourses = [
   { id: 1, code: 'MATH101', name: 'Mathematics', instructor: 'Mr. Imad', schedule: 'Mon/Wed 9:00 AM' },
   { id: 2, code: 'SCI201', name: 'Science', instructor: 'Ms. Fatima', schedule: 'Tue/Thu 11:00 AM' },
@@ -16,7 +15,14 @@ const initialCourses = [
 
 function App() {
   const [students, setStudents] = useState([
-    { id: 1, name: 'mohamed', grade: '14', contact: 'mohamed@email.com' },
+    { 
+      id: 1, 
+      name: 'mohamed', 
+      contact: 'mohamed@email.com',
+      level: 11, 
+      section: 1,
+      status: 'present'
+    },
   ])
 
   const [teachers, setTeachers] = useState([
@@ -47,16 +53,36 @@ function App() {
   }
 
   const handleAddStudent = (student) => {
-    setStudents(prev => [...prev, student])
-    addActivity('student', `New student added: ${student.name}`)
+    const newStudent = {
+      ...student,
+      id: Date.now()
+    };
+    setStudents(prev => [...prev, newStudent]);
+    addActivity('student', `New student added: ${student.name}`);
+  }
+
+
+  const handleUpdateStudent = (updatedStudent) => {
+    setStudents(prev => 
+      prev.map(student => 
+        student.id === updatedStudent.id ? updatedStudent : student
+      )
+    );
+    addActivity('student', `Student updated: ${updatedStudent.name}`);
+  }
+
+  const handleDeleteStudent = (studentId) => {
+    setStudents(prev => 
+      prev.filter(student => student.id !== studentId)
+    );
+    addActivity('student', `Student deleted`);
   }
 
   const handleAddTeacher = (teacher) => {
-    setTeachers(prev => [...prev, teacher])
+    const newTeacher = { ...teacher, id: Date.now() }
+    setTeachers(prev => [...prev, newTeacher])
     addActivity('teacher', `New teacher added: ${teacher.name}`)
   }
-
-
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -79,9 +105,11 @@ function App() {
             path="/students" 
             element={
               <StudentTable 
-                students={students} 
-                setStudents={handleAddStudent} 
-              />
+        students={students} 
+        onAddStudent={handleAddStudent}
+        onUpdateStudent={handleUpdateStudent}
+        onDeleteStudent={handleDeleteStudent}
+      />
             } 
           />
           <Route 
@@ -89,7 +117,7 @@ function App() {
             element={
               <TeacherTable 
                 teachers={teachers} 
-                setTeachers={handleAddTeacher} 
+                handleAddTeacher={handleAddTeacher} 
               />
             } 
           />
@@ -98,7 +126,9 @@ function App() {
             element={
               <Attendance 
                 attendance={attendance} 
-                setAttendance={setAttendance} 
+                setAttendance={setAttendance}
+                students={students}
+                setStudents={setStudents}
               />
             } 
           />
@@ -106,9 +136,9 @@ function App() {
             path="/courses" 
             element={
               <Courses 
-      courses={courses} 
-      setCourses={setCourses} 
-    />
+                courses={courses} 
+                setCourses={setCourses} 
+              />
             } 
           />
           <Route path="/settings" element={<Settings />} />

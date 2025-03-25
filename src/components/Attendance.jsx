@@ -10,7 +10,7 @@ import {
 const initialLevels = [
   {
     id: 1,
-    name: 'Grade 10',
+    name: 'Grade 1',
     sections: [
       { id: 1, name: 'Section A' },
       { id: 2, name: 'Section B' }
@@ -18,27 +18,96 @@ const initialLevels = [
   },
   {
     id: 2,
+    name: 'Grade 2',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 3,
+    name: 'Grade 3',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'Grade 4',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 5,
+    name: 'Grade 5',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 6,
+    name: 'Grade 6',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 7,
+    name: 'Grade 7',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 8,
+    name: 'Grade 8',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 9,
+    name: 'Grade 9',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 10,
+    name: 'Grade 10',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 11,
     name: 'Grade 11',
+    sections: [
+      { id: 3, name: 'Section A' }
+    ]
+  },
+  {
+    id: 12,
+    name: 'Grade 12',
     sections: [
       { id: 3, name: 'Section A' }
     ]
   }
 ]
 
-const initialStudents = [
-  { id: 1, name: 'Mohamed', status: 'present', level: 1, section: 1 },
-]
 
-export default function Attendance() {
-  const [students, setStudents] = useState(initialStudents)
+
+export default function Attendance({ students, setStudents }) {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [selectedLevel, setSelectedLevel] = useState('')
   const [selectedSection, setSelectedSection] = useState('')
 
   const handleStatusChange = (studentId, newStatus) => {
-    setStudents(students.map(student => 
-      student.id === studentId ? { ...student, status: newStatus } : student
-    ))
+    setStudents(prevStudents => 
+      prevStudents.map(student => 
+        student.id === studentId ? { ...student, status: newStatus } : student
+      )
+    )
   }
 
   const filteredStudents = students.filter(student =>

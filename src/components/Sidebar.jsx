@@ -16,7 +16,7 @@ export default function Sidebar() {
       <div className="mb-10 px-4">
         <h2 className="text-white text-2xl font-bold flex items-center gap-2">
           <AcademicCapIcon className="h-8 w-8 text-blue-300" />
-          <span>EduManage Pro</span>
+          <span>EduManage</span>
         </h2>
       </div>
 

@@ -1,27 +1,34 @@
 import { useState } from 'react'
 
-export default function TeacherTable({ teachers, setTeachers }) {
-  const [newTeacher, setNewTeacher] = useState({ name: '', subject: '', email: '' })
-  const [editingTeacher, setEditingTeacher] = useState(null)
+export default function TeacherTable({ teachers, onAddTeacher, onUpdateTeacher, onDeleteTeacher }) {
+  const [newTeacher, setNewTeacher] = useState({ 
+    name: '', 
+    subject: '', 
+    email: '' 
+  });
+  const [editingId, setEditingId] = useState(null);
 
-  const handleAddTeacher = (e) => {
-    e.preventDefault()
-    if (newTeacher.name && newTeacher.subject && newTeacher.email) {
-      setTeachers([...teachers, { ...newTeacher, id: teachers.length + 1 }])
-      setNewTeacher({ name: '', subject: '', email: '' })
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (editingId) {
+      onUpdateTeacher({ ...newTeacher, id: editingId });
+    } else {
+      onAddTeacher(newTeacher);
     }
+    setNewTeacher({ name: '', subject: '', email: '' });
+    setEditingId(null);
   }
 
-  const handleUpdateTeacher = () => {
-    setTeachers(teachers.map(t => t.id === editingTeacher.id ? editingTeacher : t))
-    setEditingTeacher(null)
+  const handleEdit = (teacher) => {
+    setNewTeacher(teacher);
+    setEditingId(teacher.id);
   }
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Teacher Management</h1>
       
-      <form onSubmit={handleAddTeacher} className="mb-6 bg-white p-4 rounded-lg shadow">
+      <form onSubmit={handleSubmit} className="mb-6 bg-white p-4 rounded-lg shadow">
         <div className="grid grid-cols-3 gap-4">
           <input
             type="text"
@@ -52,7 +59,7 @@ export default function TeacherTable({ teachers, setTeachers }) {
           type="submit"
           className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
-          Add Teacher
+          {editingId ? 'Update Teacher' : 'Add Teacher'}
         </button>
       </form>
 
@@ -71,60 +78,18 @@ export default function TeacherTable({ teachers, setTeachers }) {
             {teachers.map((teacher) => (
               <tr key={teacher.id}>
                 <td className="px-6 py-4 whitespace-nowrap">{teacher.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {editingTeacher?.id === teacher.id ? (
-                    <input
-                      type="text"
-                      value={editingTeacher.name}
-                      onChange={(e) => setEditingTeacher({ ...editingTeacher, name: e.target.value })}
-                      className="p-1 border rounded"
-                    />
-                  ) : (
-                    teacher.name
-                  )}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {editingTeacher?.id === teacher.id ? (
-                    <input
-                      type="text"
-                      value={editingTeacher.subject}
-                      onChange={(e) => setEditingTeacher({ ...editingTeacher, subject: e.target.value })}
-                      className="p-1 border rounded"
-                    />
-                  ) : (
-                    teacher.subject
-                  )}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {editingTeacher?.id === teacher.id ? (
-                    <input
-                      type="email"
-                      value={editingTeacher.email}
-                      onChange={(e) => setEditingTeacher({ ...editingTeacher, email: e.target.value })}
-                      className="p-1 border rounded"
-                    />
-                  ) : (
-                    teacher.email
-                  )}
-                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{teacher.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{teacher.subject}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{teacher.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap flex gap-2">
-                  {editingTeacher?.id === teacher.id ? (
-                    <button
-                      onClick={handleUpdateTeacher}
-                      className="text-green-600 hover:text-green-900"
-                    >
-                      Save
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setEditingTeacher(teacher)}
-                      className="text-blue-600 hover:text-blue-900"
-                    >
-                      Edit
-                    </button>
-                  )}
                   <button
-                    onClick={() => setTeachers(teachers.filter(t => t.id !== teacher.id))}
+                    onClick={() => handleEdit(teacher)}
+                    className="text-blue-600 hover:text-blue-900"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => onDeleteTeacher(teacher.id)}
                     className="text-red-600 hover:text-red-900"
                   >
                     Delete

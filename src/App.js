@@ -83,6 +83,23 @@ function App() {
     setTeachers(prev => [...prev, newTeacher])
     addActivity('teacher', `New teacher added: ${teacher.name}`)
   }
+  
+  const handleUpdateTeacher = (updatedTeacher) => {
+    setTeachers(prev => 
+      prev.map(teacher => 
+        teacher.id === updatedTeacher.id ? updatedTeacher : teacher
+      )
+    )
+    addActivity('teacher', `Teacher updated: ${updatedTeacher.name}`)
+  }
+  
+  const handleDeleteTeacher = (teacherId) => {
+    setTeachers(prev => prev.filter(teacher => teacher.id !== teacherId))
+    addActivity('teacher', `Teacher deleted`)
+  }
+
+
+  
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -116,9 +133,11 @@ function App() {
             path="/teachers" 
             element={
               <TeacherTable 
-                teachers={teachers} 
-                handleAddTeacher={handleAddTeacher} 
-              />
+      teachers={teachers} 
+      onAddTeacher={handleAddTeacher}
+      onUpdateTeacher={handleUpdateTeacher}
+      onDeleteTeacher={handleDeleteTeacher}
+    />
             } 
           />
           <Route 

@@ -7,6 +7,7 @@ import TeacherTable from './components/TeacherTable'
 import Dashboard from './components/Dashboard'
 import Attendance from './components/Attendance'
 import Courses from './components/Courses'
+import Activities from './components/Activities'
 
 const initialCourses = [
   { id: 1, code: 'MATH101', name: 'Mathematics', instructor: 'Mr. Imad', schedule: 'Mon/Wed 9:00 AM' },
@@ -161,6 +162,10 @@ function App() {
             } 
           />
           <Route path="/settings" element={<Settings />} />
+          <Route 
+  path="/activities" 
+  element={<Activities activities={activities} />} 
+/>
         </Routes>
       </main>
     </div>

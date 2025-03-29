@@ -1,12 +1,23 @@
 import { Cog6ToothIcon, ShieldCheckIcon, TrashIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Settings() {
   const [schoolName, setSchoolName] = useState('Ecole Alnasr')
   const [schoolAddress, setSchoolAddress] = useState('123 Hay Hassani, Casablanca')
   const [academicYear, setAcademicYear] = useState('2024-2025')
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'light'
+  })
   const [notifications, setNotifications] = useState(true)
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   const handleSchoolInfoSubmit = (e) => {
     e.preventDefault()
@@ -19,10 +30,10 @@ export default function Settings() {
   }
 
   return (
-    <div className="settings-page">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">System Settings</h1>
+    <div className="settings-page dark:bg-gray-900 dark:text-gray-100 min-h-screen p-6">
+      <h1 className="text-2xl font-bold mb-6">System Settings</h1>
 
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
         <div className="flex items-center gap-3 mb-6">
           <Cog6ToothIcon className="h-6 w-6 text-blue-600" />
           <h2 className="text-xl font-semibold">School Information</h2>
@@ -69,22 +80,22 @@ export default function Settings() {
         </form>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-        <div className="flex items-center gap-3 mb-6">
-          <Cog6ToothIcon className="h-6 w-6 text-purple-600" />
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
+      <div className="flex items-center gap-3 mb-6">
+          <Cog6ToothIcon className="h-6 w-6 text-purple-600 dark:text-purple-400" />
           <h2 className="text-xl font-semibold">Preferences</h2>
         </div>
 
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border rounded-lg">
+          <div className="flex items-center justify-between p-4 border dark:border-gray-700 rounded-lg">
             <div>
               <h3 className="font-medium">Theme</h3>
-              <p className="text-sm text-gray-500">Choose light or dark mode</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Choose light or dark mode</p>
             </div>
             <select
               value={theme}
               onChange={(e) => setTheme(e.target.value)}
-              className="p-2 border rounded-lg"
+              className="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
             >
               <option value="light">Light</option>
               <option value="dark">Dark</option>
@@ -109,7 +120,7 @@ export default function Settings() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
         <div className="flex items-center gap-3 mb-6">
           <ShieldCheckIcon className="h-6 w-6 text-green-600" />
           <h2 className="text-xl font-semibold">Security</h2>
@@ -151,7 +162,7 @@ export default function Settings() {
         </form>
       </div>
 
-      <div className="bg-red-50 rounded-xl shadow-sm p-6 border border-red-200">
+      <div className="bg-red-50 dark:bg-red-900/20 rounded-xl shadow-sm p-6 border border-red-200 dark:border-red-800">
         <div className="flex items-center gap-3 mb-6">
           <TrashIcon className="h-6 w-6 text-red-600" />
           <h2 className="text-xl font-semibold text-red-600">Danger Zone</h2>

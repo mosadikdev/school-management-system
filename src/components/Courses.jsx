@@ -33,15 +33,15 @@ export default function Courses({ courses, setCourses }) {
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Course Management</h1>
+    <div className="dark:bg-gray-900 dark:text-gray-100 min-h-screen p-6">
+      <h1 className="text-2xl font-bold mb-6">Course Management</h1>
 
-      <form onSubmit={handleSubmit} className="mb-6 bg-white p-4 rounded-lg shadow">
+      <form onSubmit={handleSubmit} className="mb-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
             placeholder="Course Code"
-            className="p-2 border rounded-lg"
+            className="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
             value={newCourse.code}
             onChange={(e) => setNewCourse({ ...newCourse, code: e.target.value })}
             required
@@ -49,7 +49,7 @@ export default function Courses({ courses, setCourses }) {
           <input
             type="text"
             placeholder="Course Name"
-            className="p-2 border rounded-lg"
+            className="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
             value={newCourse.name}
             onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
             required
@@ -57,7 +57,7 @@ export default function Courses({ courses, setCourses }) {
           <input
             type="text"
             placeholder="Instructor"
-            className="p-2 border rounded-lg"
+            className="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
             value={newCourse.instructor}
             onChange={(e) => setNewCourse({ ...newCourse, instructor: e.target.value })}
             required
@@ -65,7 +65,7 @@ export default function Courses({ courses, setCourses }) {
           <input
             type="text"
             placeholder="Schedule"
-            className="p-2 border rounded-lg"
+            className="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
             value={newCourse.schedule}
             onChange={(e) => setNewCourse({ ...newCourse, schedule: e.target.value })}
             required
@@ -73,41 +73,44 @@ export default function Courses({ courses, setCourses }) {
         </div>
         <button
           type="submit"
-          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
         >
           <PlusIcon className="h-5 w-5" />
           {editingId ? 'Update Course' : 'Add Course'}
         </button>
       </form>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
         <table className="min-w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-gray-50 dark:bg-gray-700">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Code</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Course Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Instructor</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Schedule</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Code</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Course Name</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Instructor</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Schedule</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             {courses.map(course => (
-              <tr key={course.id}>
-                <td className="px-6 py-4 whitespace-nowrap">{course.code}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{course.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{course.instructor}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{course.schedule}</td>
+              <tr key={course.id} className="dark:hover:bg-gray-700">
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{course.code}</td>
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{course.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{course.instructor}</td>
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{course.schedule}</td>
                 <td className="px-6 py-4 whitespace-nowrap flex gap-2">
                   <button
-                    onClick={() => handleEdit(course)}
-                    className="text-blue-600 hover:text-blue-900"
+                    onClick={() => {
+                      setNewCourse(course)
+                      setEditingId(course.id)
+                    }}
+                    className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
                   >
                     <PencilIcon className="h-5 w-5" />
                   </button>
                   <button
-                    onClick={() => handleDelete(course.id)}
-                    className="text-red-600 hover:text-red-900"
+                    onClick={() => setCourses(courses.filter(c => c.id !== course.id))}
+                    className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                   >
                     <TrashIcon className="h-5 w-5" />
                   </button>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
 import Settings from './components/Settings'
@@ -99,6 +99,10 @@ function App() {
     addActivity('teacher', `Teacher deleted`)
   }
 
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') || 'light'
+    document.documentElement.classList.toggle('dark', savedTheme === 'dark')
+  }, [])
 
   
 

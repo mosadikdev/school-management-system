@@ -25,15 +25,15 @@ export default function TeacherTable({ teachers, onAddTeacher, onUpdateTeacher, 
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Teacher Management</h1>
+    <div className="dark:bg-gray-900 dark:text-gray-100 min-h-screen p-6">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Teacher Management</h1>
       
-      <form onSubmit={handleSubmit} className="mb-6 bg-white p-4 rounded-lg shadow">
+      <form onSubmit={handleSubmit} className="mb-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
         <div className="grid grid-cols-3 gap-4">
           <input
             type="text"
             placeholder="Teacher Name"
-            className="p-2 border rounded"
+            className="p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             value={newTeacher.name}
             onChange={(e) => setNewTeacher({ ...newTeacher, name: e.target.value })}
             required
@@ -41,7 +41,7 @@ export default function TeacherTable({ teachers, onAddTeacher, onUpdateTeacher, 
           <input
             type="text"
             placeholder="Subject"
-            className="p-2 border rounded"
+            className="p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             value={newTeacher.subject}
             onChange={(e) => setNewTeacher({ ...newTeacher, subject: e.target.value })}
             required
@@ -49,7 +49,7 @@ export default function TeacherTable({ teachers, onAddTeacher, onUpdateTeacher, 
           <input
             type="email"
             placeholder="Email"
-            className="p-2 border rounded"
+            className="p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             value={newTeacher.email}
             onChange={(e) => setNewTeacher({ ...newTeacher, email: e.target.value })}
             required
@@ -57,40 +57,40 @@ export default function TeacherTable({ teachers, onAddTeacher, onUpdateTeacher, 
         </div>
         <button
           type="submit"
-          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="mt-4 bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-700 dark:hover:bg-blue-800"
         >
           {editingId ? 'Update Teacher' : 'Add Teacher'}
         </button>
       </form>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
         <table className="min-w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-gray-50 dark:bg-gray-700">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Subject</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">ID</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Name</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Subject</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Email</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             {teachers.map((teacher) => (
-              <tr key={teacher.id}>
-                <td className="px-6 py-4 whitespace-nowrap">{teacher.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{teacher.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{teacher.subject}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{teacher.email}</td>
+              <tr key={teacher.id} className="dark:bg-gray-800">
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{teacher.id}</td>
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{teacher.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{teacher.subject}</td>
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{teacher.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap flex gap-2">
                   <button
                     onClick={() => handleEdit(teacher)}
-                    className="text-blue-600 hover:text-blue-900"
+                    className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => onDeleteTeacher(teacher.id)}
-                    className="text-red-600 hover:text-red-900"
+                    className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                   >
                     Delete
                   </button>

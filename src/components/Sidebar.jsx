@@ -7,12 +7,27 @@ import {
   BookOpenIcon,
   ArrowLeftOnRectangleIcon,
   ClipboardDocumentCheckIcon,
-  BookmarkIcon
+  BookmarkIcon,
+  Bars3Icon
 } from '@heroicons/react/24/outline'
+import { useState } from 'react'
 
 export default function Sidebar() {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <div className="w-64 bg-gradient-to-b from-blue-800 to-blue-900 min-h-screen p-6 flex flex-col">
+    <>
+    {/* Mobile Menu Button */}
+    <button
+    onClick={() => setIsOpen(!isOpen)}
+    className="md:hidden fixed top-4 right-4 z-50 p-2 bg-blue-600 text-white rounded-lg"
+  >
+    <Bars3Icon className="h-6 w-6" />
+  </button>
+
+  {/* Sidebar */}
+  <div className={`${isOpen ? 'translate-x-0' : '-translate-x-full'} 
+    md:translate-x-0 fixed md:relative w-64 bg-gradient-to-b from-blue-800 to-blue-900 
+    min-h-screen p-6 flex flex-col transition-transform duration-300 z-40`}>
       <div className="mb-10 px-4">
         <h2 className="text-white text-2xl font-bold flex items-center gap-2">
           <AcademicCapIcon className="h-8 w-8 text-blue-300" />
@@ -115,5 +130,6 @@ export default function Sidebar() {
         </button>
       </div>
     </div>
+    </>
   )
 }

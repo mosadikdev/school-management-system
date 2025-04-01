@@ -23,7 +23,7 @@ export default function Activities({ activities }) {
   return (
     <div className="p-4 sm:p-6 dark:bg-gray-900 min-h-screen">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">All Activities</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-100">All Activities</h1>
         <Link 
           to="/" 
           className="flex items-center gap-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
@@ -46,8 +46,8 @@ export default function Activities({ activities }) {
                   {icons[activity.type] || icons.system}
                 </div>
                 <div className="flex-1">
-                  <p className="font-medium dark:text-gray-200">{activity.text}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm md:text-base font-medium dark:text-gray-200">{activity.text}</p>
+                  <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">
                     {format(parseISO(activity.timestamp), 'MMM dd, yyyy HH:mm')}
                   </p>
                 </div>

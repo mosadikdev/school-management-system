@@ -10,3 +10,12 @@
 .dark body {
   @apply bg-gray-900 text-gray-100;
 }
+
+@layer base {
+  html {
+    font-size: 16px;
+    @media (max-width: 640px) {
+      font-size: 14px;
+    }
+  }
+}

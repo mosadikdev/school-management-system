@@ -37,7 +37,7 @@ export default function Dashboard({
   return (
     <div className="dashboard p-4 sm:p-6 dark:bg-gray-900 dark:text-gray-100">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">School Dashboard</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-100">School Dashboard</h1>
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
           <ClockIcon className="h-4 w-4" />
           <span>{format(new Date(), 'MMM dd, yyyy')}</span>
@@ -131,8 +131,8 @@ export default function Dashboard({
                 <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <CalendarIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                   <div>
-                    <p className="font-medium dark:text-gray-100">{event.title}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm md:text-base font-medium dark:text-gray-100">{event.title}</p>
+                    <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">
                       {format(new Date(event.date), 'MMM dd, yyyy')}
                     </p>
                   </div>
@@ -150,8 +150,8 @@ const StatCard = ({ icon, title, value, trend, subText, iconSub }) => (
   <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm flex items-center gap-4">
     {icon}
     <div>
-      <p className="text-gray-500 dark:text-gray-400 text-sm">{title}</p>
-      <p className="text-2xl font-bold dark:text-gray-100">{value}</p>
+      <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base">{title}</p>
+      <p className="text-sm md:text-base font-bold dark:text-gray-100">{value}</p>
       {trend ? (
         <div className="flex items-center text-green-600 dark:text-green-400 text-sm">
           <ArrowUpRightIcon className="h-4 w-4" />
@@ -195,8 +195,8 @@ const ActivityItem = ({ type, text, time }) => {
     <div className="flex items-start gap-4 p-4 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
       <div className="mt-1">{icons[type] || icons.system}</div>
       <div>
-        <p className="font-medium dark:text-gray-100">{text}</p>
-        <p className="text-sm text-gray-500 dark:text-gray-400">{time}</p>
+        <p className="text-sm md:text-base font-medium dark:text-gray-100">{text}</p>
+        <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">{time}</p>
       </div>
     </div>
   )

@@ -30,8 +30,8 @@ export default function Settings() {
   }
 
   return (
-    <div className="settings-page dark:bg-gray-900 dark:text-gray-100 min-h-screen p-6">
-      <h1 className="text-2xl font-bold mb-6">System Settings</h1>
+    <div className="settings-page p-2 md:p-4 lg:p-6">
+  <h1 className="text-xl md:text-2xl font-bold mb-4">System Settings</h1>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
         <div className="flex items-center gap-3 mb-6">
@@ -87,10 +87,10 @@ export default function Settings() {
         </div>
 
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-2 md:p-4 border dark:border-gray-700 rounded-lg">
             <div>
               <h3 className="font-medium">Theme</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Choose light or dark mode</p>
+              <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">Choose light or dark mode</p>
             </div>
             <select
               value={theme}
@@ -105,7 +105,7 @@ export default function Settings() {
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div>
               <h3 className="font-medium">Notifications</h3>
-              <p className="text-sm text-gray-500">Receive system notifications</p>
+              <p className="text-sm md:text-base text-gray-500">Receive system notifications</p>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
@@ -172,7 +172,7 @@ export default function Settings() {
           <div className="flex items-center justify-between p-4 border rounded-lg border-red-200 bg-white">
             <div>
               <h3 className="font-medium">Delete Account</h3>
-              <p className="text-sm text-gray-500">Permanently delete your school account</p>
+              <p className="text-sm md:text-base text-gray-500">Permanently delete your school account</p>
             </div>
             <button className="px-4 py-2 text-red-600 border border-red-300 rounded-lg hover:bg-red-50">
               Delete Account

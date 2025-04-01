@@ -121,7 +121,7 @@ export default function Attendance({ students, setStudents }) {
 
   return (
     <div className="dark:bg-gray-900 dark:text-gray-100 min-h-screen p-6">
-      <h1 className="text-2xl font-bold mb-6">Attendance Management</h1>
+      <h1 className="text-xl md:text-2xl font-bold mb-6">Attendance Management</h1>
       
       <div className="mb-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow grid grid-cols-1 md:grid-cols-4 gap-4">
       <div className="flex items-center gap-3">
@@ -213,40 +213,40 @@ export default function Attendance({ students, setStudents }) {
         <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg flex items-center gap-3">
           <CheckCircleIcon className="h-6 w-6 text-green-600 dark:text-green-400" />
           <div>
-            <p className="text-2xl font-bold dark:text-green-400">
+            <p className="text-sm md:text-base font-bold dark:text-green-400">
               {filteredStudents.filter(s => s.status === 'present').length}
             </p>
-            <p className="text-sm text-gray-600 dark:text-green-300">Present</p>
+            <p className="text-sm md:text-base text-gray-600 dark:text-green-300">Present</p>
           </div>
         </div>
         
         <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg flex items-center gap-3">
           <XCircleIcon className="h-6 w-6 text-red-600 dark:text-red-400" />
           <div>
-            <p className="text-2xl font-bold dark:text-red-400">
+            <p className="text-sm md:text-base font-bold dark:text-red-400">
               {filteredStudents.filter(s => s.status === 'absent').length}
             </p>
-            <p className="text-sm text-gray-600 dark:text-red-300">Absent</p>
+            <p className="text-sm md:text-base text-gray-600 dark:text-red-300">Absent</p>
           </div>
         </div>
         
         <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg flex items-center gap-3">
           <XCircleIcon className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
           <div>
-            <p className="text-2xl font-bold dark:text-yellow-400">
+            <p className="text-sm md:text-base font-bold dark:text-yellow-400">
               {filteredStudents.filter(s => s.status === 'late').length}
             </p>
-            <p className="text-sm text-gray-600 dark:text-yellow-300">Late</p>
+            <p className="text-sm md:text-base text-gray-600 dark:text-yellow-300">Late</p>
           </div>
         </div>
         
         <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg flex items-center gap-3">
           <CheckCircleIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
           <div>
-            <p className="text-2xl font-bold dark:text-blue-400">
+            <p className="text-sm md:text-base font-bold dark:text-blue-400">
               {filteredStudents.filter(s => s.status === 'excused').length}
             </p>
-            <p className="text-sm text-gray-600 dark:text-blue-300">Excused</p>
+            <p className="text-sm md:text-base text-gray-600 dark:text-blue-300">Excused</p>
           </div>
         </div>
       </div>

@@ -8,6 +8,8 @@ import Dashboard from './components/Dashboard'
 import Attendance from './components/Attendance'
 import Courses from './components/Courses'
 import Activities from './components/Activities'
+import Schedule from './components/Schedule'
+import Reports from './components/Reports'
 
 const initialCourses = [
   { id: 1, code: 'MATH101', name: 'Mathematics', instructor: 'Mr. Imad', schedule: 'Mon/Wed 9:00 AM' },
@@ -52,6 +54,9 @@ function App() {
       }
     ])
   }
+
+  const [schedules, setSchedules] = useState([]);
+
 
   const handleAddStudent = (student) => {
     const newStudent = {
@@ -169,6 +174,27 @@ function App() {
           <Route 
   path="/activities" 
   element={<Activities activities={activities} />} 
+/>
+<Route 
+  path="/schedule"
+  element={
+    <Schedule 
+      schedules={schedules}
+      setSchedules={setSchedules}
+      teachers={teachers}
+    />
+  }
+/>
+<Route 
+  path="/reports"
+  element={
+    <Reports 
+      students={students}
+      teachers={teachers}
+      courses={courses}
+      attendance={attendance}
+    />
+  }
 />
         </Routes>
       </main>

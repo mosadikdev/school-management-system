@@ -8,7 +8,8 @@ import {
   ArrowLeftOnRectangleIcon,
   ClipboardDocumentCheckIcon,
   BookmarkIcon,
-  Bars3Icon
+  Bars3Icon,
+  CalendarIcon
 } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 
@@ -104,6 +105,33 @@ export default function Sidebar() {
 >
   <BookmarkIcon className="h-6 w-6" />
   <span className="font-medium">Courses</span>
+</NavLink>
+<NavLink
+  to="/schedule"
+  className={({ isActive }) => 
+    `w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-200 ${
+      isActive 
+        ? 'bg-blue-700 text-white shadow-lg'
+        : 'text-blue-200 hover:bg-blue-700/50 hover:text-white'
+    }`
+  }
+>
+  <CalendarIcon className="h-6 w-6" />
+  <span>Schedule</span>
+</NavLink>
+
+<NavLink
+  to="/reports"
+  className={({ isActive }) => 
+    `w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-200 ${
+      isActive 
+        ? 'bg-blue-700 text-white shadow-lg'
+        : 'text-blue-200 hover:bg-blue-700/50 hover:text-white'
+    }`
+  }
+>
+  <ChartBarIcon className="h-6 w-6" />
+  <span>Reports</span>
 </NavLink>
 
         <div className="border-t border-blue-600/50 my-4"></div>

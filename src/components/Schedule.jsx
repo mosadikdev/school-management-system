@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { formatISO } from 'date-fns'
-import { 
+import { useState, useEffect } from 'react'
+import { formatISO, parseISO, format } from 'date-fns'
+import {
   CalendarIcon,
   ClockIcon,
   AcademicCapIcon,
@@ -16,7 +16,13 @@ export default function Schedule({ schedules, setSchedules, teachers }) {
     teacherId: '',
     location: ''
   })
+
   const [editingId, setEditingId] = useState(null)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('schedules')
+    if (saved) setSchedules(JSON.parse(saved))
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -26,12 +32,13 @@ export default function Schedule({ schedules, setSchedules, teachers }) {
       datetime: new Date(newSchedule.datetime).toISOString()
     }
 
-    if (editingId) {
-      setSchedules(prev => prev.map(s => s.id === editingId ? schedule : s))
-    } else {
-      setSchedules(prev => [...prev, schedule])
-    }
-    
+    const updatedSchedules = editingId
+      ? schedules.map(s => s.id === editingId ? schedule : s)
+      : [...schedules, schedule]
+
+    setSchedules(updatedSchedules)
+    localStorage.setItem('schedules', JSON.stringify(updatedSchedules))
+
     setNewSchedule({
       datetime: '',
       subject: '',
@@ -44,15 +51,21 @@ export default function Schedule({ schedules, setSchedules, teachers }) {
   const handleEdit = (schedule) => {
     setNewSchedule({
       ...schedule,
-      datetime: formatISO(new Date(schedule.datetime), { representation: 'complete' })
+      datetime: format(parseISO(schedule.datetime), "yyyy-MM-dd'T'HH:mm")
     })
     setEditingId(schedule.id)
+  }
+
+  const handleDelete = (id) => {
+    const filtered = schedules.filter(s => s.id !== id)
+    setSchedules(filtered)
+    localStorage.setItem('schedules', JSON.stringify(filtered))
   }
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Class Schedule</h1>
-      
+
       <form onSubmit={handleSubmit} className="mb-6 bg-white p-4 rounded-lg shadow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center gap-2">
@@ -60,24 +73,24 @@ export default function Schedule({ schedules, setSchedules, teachers }) {
             <input
               type="datetime-local"
               value={newSchedule.datetime}
-              onChange={(e) => setNewSchedule({...newSchedule, datetime: e.target.value})}
+              onChange={(e) => setNewSchedule({ ...newSchedule, datetime: e.target.value })}
               className="p-2 border rounded-lg w-full"
               required
             />
           </div>
-          
+
           <input
             type="text"
             placeholder="Subject"
             value={newSchedule.subject}
-            onChange={(e) => setNewSchedule({...newSchedule, subject: e.target.value})}
+            onChange={(e) => setNewSchedule({ ...newSchedule, subject: e.target.value })}
             className="p-2 border rounded-lg"
             required
           />
-          
+
           <select
             value={newSchedule.teacherId}
-            onChange={(e) => setNewSchedule({...newSchedule, teacherId: e.target.value})}
+            onChange={(e) => setNewSchedule({ ...newSchedule, teacherId: e.target.value })}
             className="p-2 border rounded-lg"
             required
           >
@@ -86,14 +99,14 @@ export default function Schedule({ schedules, setSchedules, teachers }) {
               <option key={teacher.id} value={teacher.id}>{teacher.name}</option>
             ))}
           </select>
-          
+
           <div className="flex items-center gap-2">
             <MapPinIcon className="h-5 w-5 text-gray-500" />
             <input
               type="text"
               placeholder="Location"
               value={newSchedule.location}
-              onChange={(e) => setNewSchedule({...newSchedule, location: e.target.value})}
+              onChange={(e) => setNewSchedule({ ...newSchedule, location: e.target.value })}
               className="p-2 border rounded-lg w-full"
               required
             />
@@ -124,7 +137,7 @@ export default function Schedule({ schedules, setSchedules, teachers }) {
               return (
                 <tr key={schedule.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {new Date(schedule.datetime).toLocaleString()}
+                    {format(parseISO(schedule.datetime), 'PPp')}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{schedule.subject}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{teacher?.name || 'Unknown'}</td>
@@ -137,7 +150,7 @@ export default function Schedule({ schedules, setSchedules, teachers }) {
                       <PencilIcon className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => setSchedules(prev => prev.filter(s => s.id !== schedule.id))}
+                      onClick={() => handleDelete(schedule.id)}
                       className="text-red-600 hover:text-red-900"
                     >
                       <TrashIcon className="h-5 w-5" />

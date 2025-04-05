@@ -4,7 +4,7 @@ export default function StudentTable({ students, onAddStudent, onUpdateStudent, 
   const [newStudent, setNewStudent] = useState({ 
     name: '', 
     contact: '',
-    level: 10,
+    level: 1, // Changed from 10 to match grade levels
     section: 1,
     status: 'present'
   });
@@ -26,7 +26,7 @@ export default function StudentTable({ students, onAddStudent, onUpdateStudent, 
     setNewStudent({ 
       name: '', 
       contact: '',
-      level: 10,
+      level: 1,
       section: 1,
       status: 'present'
     });
@@ -44,7 +44,7 @@ export default function StudentTable({ students, onAddStudent, onUpdateStudent, 
       
       <form onSubmit={handleSubmit} className="mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
-        <input
+          <input
             type="text"
             placeholder="Student Name"
             className="p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -61,28 +61,28 @@ export default function StudentTable({ students, onAddStudent, onUpdateStudent, 
             required
           />
           <select
-  value={newStudent.level}
-  onChange={(e) => setNewStudent({ ...newStudent, level: Number(e.target.value) })}
-  className="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-  required
->
-    <option value="1">Grade 1</option>
-    <option value="2">Grade 2</option>
-    <option value="3">Grade 3</option>
-    <option value="4">Grade 4</option>
-    <option value="5">Grade 5</option>
-    <option value="6">Grade 6</option>
-    <option value="7">Grade 7</option>
-    <option value="8">Grade 8</option>
-    <option value="9">Grade 9</option>
-  <option value="10">Grade 10</option>
-  <option value="11">Grade 11</option>
-  <option value="12">Grade 12</option>
-</select>
+            value={newStudent.level}
+            onChange={(e) => setNewStudent({ ...newStudent, level: Number(e.target.value) })}
+            className="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            required
+          >
+            <option value="1">Grade 1</option>
+            <option value="2">Grade 2</option>
+            <option value="3">Grade 3</option>
+            <option value="4">Grade 4</option>
+            <option value="5">Grade 5</option>
+            <option value="6">Grade 6</option>
+            <option value="7">Grade 7</option>
+            <option value="8">Grade 8</option>
+            <option value="9">Grade 9</option>
+            <option value="10">Grade 10</option>
+            <option value="11">Grade 11</option>
+            <option value="12">Grade 12</option>
+          </select>
           <select
             value={newStudent.section}
             onChange={(e) => setNewStudent({ ...newStudent, section: Number(e.target.value) })}
-            className="p-2 border rounded-lg"
+            className="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             required
           >
             <option value="1">Section A</option>
@@ -112,14 +112,24 @@ export default function StudentTable({ students, onAddStudent, onUpdateStudent, 
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             {students.map((student) => (
               <tr key={student.id} className="dark:bg-gray-800">
-              <td className="px-3 py-2 md:px-4 md:py-3 text-sm">{student.id}</td>
-              <td className="px-3 py-2 md:px-4 md:py-3 text-sm">{student.name}</td>
+                <td className="px-3 py-2 md:px-4 md:py-3 text-sm">{student.id}</td>
+                <td className="px-3 py-2 md:px-4 md:py-3 text-sm">{student.name}</td>
                 <td className="px-3 py-2 md:px-4 md:py-3 text-sm">Grade {student.level}</td>
                 <td className="px-3 py-2 md:px-4 md:py-3 text-sm">{student.contact}</td>
                 <td className="px-3 py-2 md:px-4 md:py-3 text-sm">Section {student.section}</td>
                 <td className="px-3 py-2 md:px-4 md:py-3 flex flex-col gap-1">
-                  <button className="text-blue-600 dark:text-blue-400">Edit</button>
-                  <button className="text-red-600 dark:text-red-400">Delete</button>
+                  <button 
+                    onClick={() => handleEdit(student)}
+                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    onClick={() => onDeleteStudent(student.id)}
+                    className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

@@ -17,31 +17,52 @@ const initialCourses = [
 ]
 
 function App() {
-  const [students, setStudents] = useState([
-    { 
-      id: 1, 
-      name: 'mohamed', 
-      contact: 'mohamed@email.com',
-      level: 11, 
-      section: 1,
-      status: 'present'
-    },
-  ])
+  const [students, setStudents] = useState(() => {
+    const saved = localStorage.getItem('students')
+    return saved ? JSON.parse(saved) : [
+      { 
+        id: 1, 
+        name: 'mohamed', 
+        contact: 'mohamed@email.com',
+        level: 10,
+        section: 1,
+        status: 'present'
+      }
+    ]
+  })
 
-  const [teachers, setTeachers] = useState([
-    { id: 1, name: 'Mr. imad', subject: 'Math', email: 'imad@email.com' },
-  ])
+  const [teachers, setTeachers] = useState(() => {
+    const saved = localStorage.getItem('teachers')
+    return saved ? JSON.parse(saved) : [
+      { id: 1, name: 'Mr. imad', subject: 'Math', email: 'imad@email.com' }
+    ]
+  })
 
-  const [courses, setCourses] = useState(initialCourses)
-  const [attendance, setAttendance] = useState([])
-  const [activities, setActivities] = useState([
-    { 
-      id: 1, 
-      type: 'system', 
-      text: 'School Management System initialized', 
-      timestamp: new Date().toISOString() 
-    }
-  ])
+  const [courses, setCourses] = useState(() => {
+    const saved = localStorage.getItem('courses')
+    return saved ? JSON.parse(saved) : [
+      { id: 1, code: 'MATH101', name: 'Mathematics', instructor: 'Mr. Imad', schedule: 'Mon/Wed 9:00 AM' },
+      { id: 2, code: 'SCI201', name: 'Science', instructor: 'Ms. Fatima', schedule: 'Tue/Thu 11:00 AM' }
+    ]
+  })
+
+
+  const [attendance, setAttendance] = useState(() => {
+    const saved = localStorage.getItem('attendance')
+    return saved ? JSON.parse(saved) : []
+  })
+
+  const [activities, setActivities] = useState(() => {
+    const saved = localStorage.getItem('activities')
+    return saved ? JSON.parse(saved) : [
+      { 
+        id: 1, 
+        type: 'system', 
+        text: 'School Management System initialized', 
+        timestamp: new Date().toISOString() 
+      }
+    ]
+  })
 
   const addActivity = (type, text) => {
     setActivities(prev => [
@@ -55,7 +76,10 @@ function App() {
     ])
   }
 
-  const [schedules, setSchedules] = useState([]);
+  const [schedules, setSchedules] = useState(() => {
+    const savedSchedules = localStorage.getItem('schedules');
+    return savedSchedules ? JSON.parse(savedSchedules) : [];
+  });
 
 
   const handleAddStudent = (student) => {
@@ -104,11 +128,61 @@ function App() {
     addActivity('teacher', `Teacher deleted`)
   }
 
+
+  const handleAddCourse = (course) => {
+    const newCourse = { ...course, id: Date.now() }
+    setCourses(prev => [...prev, newCourse])
+    addActivity('course', `New course added: ${course.name}`)
+  }
+  
+  const handleUpdateCourse = (updatedCourse) => {
+    setCourses(prev => 
+      prev.map(course => 
+        course.id === updatedCourse.id ? updatedCourse : course
+      )
+    )
+    addActivity('course', `Course updated: ${updatedCourse.name}`)
+  }
+  
+  const handleDeleteCourse = (courseId) => {
+    setCourses(prev => prev.filter(course => course.id !== courseId))
+    addActivity('course', `Course deleted`)
+  }
+
+
+  const handleAttendanceChange = (updatedAttendance) => {
+    setAttendance(updatedAttendance)
+  }
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light'
     document.documentElement.classList.toggle('dark', savedTheme === 'dark')
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem('students', JSON.stringify(students))
+  }, [students])
+
+  useEffect(() => {
+    localStorage.setItem('teachers', JSON.stringify(teachers))
+  }, [teachers])
+
+  useEffect(() => {
+    localStorage.setItem('courses', JSON.stringify(courses))
+  }, [courses])
+
+  useEffect(() => {
+    localStorage.setItem('attendance', JSON.stringify(attendance))
+  }, [attendance])
+
+  useEffect(() => {
+    localStorage.setItem('activities', JSON.stringify(activities))
+  }, [activities])
+
+  useEffect(() => {
+    localStorage.setItem('schedules', JSON.stringify(schedules));
+  }, [schedules]);
+  
   
 
   return (
@@ -154,20 +228,21 @@ function App() {
             path="/attendance" 
             element={
               <Attendance 
-                attendance={attendance} 
-                setAttendance={setAttendance}
-                students={students}
-                setStudents={setStudents}
-              />
+      attendance={attendance} 
+      setAttendance={handleAttendanceChange}
+      students={students}
+    />
             } 
           />
           <Route 
             path="/courses" 
             element={
               <Courses 
-                courses={courses} 
-                setCourses={setCourses} 
-              />
+      courses={courses} 
+      onAddCourse={handleAddCourse}
+      onUpdateCourse={handleUpdateCourse}
+      onDeleteCourse={handleDeleteCourse}
+    />
             } 
           />
           <Route path="/settings" element={<Settings />} />

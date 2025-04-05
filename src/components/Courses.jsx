@@ -1,18 +1,16 @@
 import { useState } from 'react'
-import { BookOpenIcon, PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { BookOpenIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 
-export default function Courses({ courses, setCourses }) {
+export default function Courses({ courses, onAddCourse, onUpdateCourse, onDeleteCourse }) {
   const [newCourse, setNewCourse] = useState({ code: '', name: '', instructor: '', schedule: '' })
   const [editingId, setEditingId] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (editingId) {
-      setCourses(courses.map(course => 
-        course.id === editingId ? { ...newCourse, id: editingId } : course
-      ))
+      onUpdateCourse({ ...newCourse, id: editingId })
     } else {
-      setCourses([...courses, { ...newCourse, id: Date.now() }])
+      onAddCourse(newCourse)
     }
     setNewCourse({ code: '', name: '', instructor: '', schedule: '' })
     setEditingId(null)
@@ -24,7 +22,7 @@ export default function Courses({ courses, setCourses }) {
   }
 
   const handleDelete = (courseId) => {
-    setCourses(courses.filter(course => course.id !== courseId))
+    onDeleteCourse(courseId)  // Corrected line
   }
 
   return (

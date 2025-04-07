@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { 
   AcademicCapIcon,
   UserGroupIcon,
@@ -15,9 +15,10 @@ import { useState } from 'react'
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false)
+
+
   return (
     <>
-    {/* Mobile Menu Button */}
     <button
     onClick={() => setIsOpen(!isOpen)}
     className="md:hidden fixed top-4 right-4 z-50 p-2 bg-blue-600 text-white rounded-lg"
@@ -25,7 +26,6 @@ export default function Sidebar() {
     <Bars3Icon className="h-6 w-6" />
   </button>
 
-  {/* Sidebar */}
   <div className={`${isOpen ? 'translate-x-0' : '-translate-x-full'} 
     md:translate-x-0 fixed md:relative w-64 bg-gradient-to-b from-blue-800 to-blue-900 
     min-h-screen p-6 flex flex-col transition-transform duration-300 z-40`}>
@@ -152,10 +152,16 @@ export default function Sidebar() {
       </nav>
 
       <div className="pt-4 border-t border-blue-600/50">
-        <button className="w-full flex items-center gap-3 p-3 text-blue-200 hover:bg-blue-700/50 rounded-xl transition-all duration-200">
-          <ArrowLeftOnRectangleIcon className="h-6 w-6" />
-          <span className="font-medium">Logout</span>
-        </button>
+      <button 
+  onClick={() => {
+    localStorage.removeItem('isAuthenticated')
+    window.location = '/login'
+  }}
+  className="w-full flex items-center gap-3 p-3 text-blue-200 hover:bg-blue-700/50 rounded-xl transition-all duration-200"
+>
+  <ArrowLeftOnRectangleIcon className="h-6 w-6" />
+  <span className="font-medium">Logout</span>
+</button>
       </div>
     </div>
     </>
